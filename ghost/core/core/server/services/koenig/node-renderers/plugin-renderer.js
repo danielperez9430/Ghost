@@ -124,7 +124,8 @@ function renderPluginNode(node, options = {}) {
     } catch {
         renderPayload = {...rawPayload}; // Fallback to shallow copy
     }
-    const preprocessSource = card?.preprocess || '';
+    // Use plugin loader's preprocess if available, otherwise fall back to node's stored preprocess
+    const preprocessSource = card?.preprocess || node.preprocess || '';
     if (preprocessSource) {
         try {
             const {createPreprocessor} = require('@tryghost/kg-default-nodes');
